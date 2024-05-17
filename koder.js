@@ -24,12 +24,12 @@ function ls() {
     const arrKoder = getKoders()
     //Validacion vacio y mostrar
     if (arrKoder.length === 0) {
-        console.log("Aun no hay Koders aqui!");
+        console.log("No hay Koders aqui!");
         process.exit()
     }
-    console.log('\nLista de Koders:\n');
+    console.log('\nLista de Koders:');
     arrKoder.forEach((name, index) => {
-        console.log(name, '-', index);
+        console.log((index+1)+'.-' ,name );
     });
 }
 
@@ -48,7 +48,7 @@ function rm(name) {
             arrKoder.splice(index,1)
         }
     });
-
+    console.log("koder Eliminado!");
     //Actualizar
     updateKoders(arrKoder)
 }
@@ -81,7 +81,7 @@ function updateKoders(koders) {
     fs.writeFileSync(koderFile,JSON.stringify(newObKoder))
 }
 
-function main() {
+(function main() {
 
     init()
     const accion = process.argv[2]
@@ -96,6 +96,7 @@ function main() {
             //validar no numeros
             if (!isNaN(name)) {
                 console.log("No se permiten numeros para el nombre!");
+                break;
             }
             add(name)
             ls()
@@ -104,6 +105,7 @@ function main() {
         case 'rm':
             if (!isNaN(name)) {
                 console.log("No se permiten numeros para el nombre!");
+                break;
             }
             rm(name)
             ls()
@@ -118,6 +120,4 @@ function main() {
             console.log("No existe ese comando!");
             break;
     }
-}
-
-main()
+})()
