@@ -1,14 +1,7 @@
 /* eslint-disable */
 
 const fs = require("node:fs")
-
 const koderFile = 'dbKoder.json'
-
-//  registrar koder -- add(name)
-//  listar koders -- ls()
-//  Eliminar koders*nombre -- rm(name)
-//  Eliminar koders -- reset()
-
 
 function add(name) {
     //leer archivo (recuperar arreglo de koders)
@@ -20,7 +13,6 @@ function add(name) {
 }
 
 function ls() {
-    //leer archivo (recuperar arreglo de koders)
     const arrKoder = getKoders()
     //Validacion vacio y mostrar
     if (arrKoder.length === 0) {
@@ -34,7 +26,6 @@ function ls() {
 }
 
 function rm(name) {
-    //leer archivo (recuperar arreglo de koders)
     const arrKoder = getKoders()
     let nameFormat = name.toLowerCase().trim() 
     //validar si el nombre esta en el arreglo
@@ -49,36 +40,29 @@ function rm(name) {
         }
     });
     console.log("koder Eliminado!");
-    //Actualizar
     updateKoders(arrKoder)
 }
 
 function reset() {
-    //Actualizar a vacio
     updateKoders([])
 }
 
-//verificamos existencia del archivo, caso contrario se crea
 function init (){
     if (!fs.existsSync(koderFile)) {
-        //crear archivo
         fs.writeFileSync(koderFile, JSON.stringify({ kodersList:[] }))
     }
 }
 
-//nos regresa el arreglo de koders
 function getKoders() {
-    //leer archivo
     arrKoders = JSON.parse(fs.readFileSync(koderFile,'utf8')).kodersList
     return arrKoders
 }
 
-//actualizar koders
 function updateKoders(koders) {
     //remplazamos el objeto que teniamos con lo nuevo que nos esta llegando
-    const newObKoder = { kodersList: koders }
+    const newObjectKoder = { kodersList: koders }
     //reescribimos el archivo con los datos nuevos 
-    fs.writeFileSync(koderFile,JSON.stringify(newObKoder))
+    fs.writeFileSync(koderFile,JSON.stringify(newObjectKoder))
 }
 
 (function main() {
@@ -93,7 +77,6 @@ function updateKoders(koders) {
             break;
     
         case 'add':
-            //validar no numeros
             if (!isNaN(name)) {
                 console.log("No se permiten numeros para el nombre!");
                 break;
