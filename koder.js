@@ -33,12 +33,18 @@ function rm(name) {
         console.log("Ese nombre no existe en la lista :c");
         process.exit();
     }
+    
     //buscamos y eliminamos
-    arrKoder.forEach((nameIt, index) => {
-        if (nameIt === nameFormat ) {
-            arrKoder.splice(index,1)
-        }
-    });
+    // arrKoder.forEach((nameIt, index) => {
+        // if (nameIt === nameFormat ) {
+            // arrKoder.splice(index,1)
+        // }
+    // });
+
+    // era mejor con indexOf..(correccion)
+    const indx = arrKoder.indexOf(name)
+    arrKoder.splice(indx,1)
+    
     console.log("koder Eliminado!");
     updateKoders(arrKoder)
 }
@@ -65,7 +71,7 @@ function updateKoders(koders) {
     fs.writeFileSync(koderFile,JSON.stringify(newObjectKoder))
 }
 
-(function main() {
+(function () {
 
     init()
     const accion = process.argv[2]
